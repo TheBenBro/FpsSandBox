@@ -14,15 +14,15 @@ public class AnimationStateController : MonoBehaviour
     }
     public static void SetVelocity(float velocity_)
     {
-        animator.SetFloat("Velocity", velocity_);
+        //animator.SetFloat("Velocity", velocity_);
     }
 
     public static void StartWalking()
     {
-        animator.SetBool("IsWalking", true);
+        //animator.SetBool("IsWalking", true);
     }
     public static void StopWalking()
     {
-        animator.SetBool("IsWalking", false);
+        //animator.SetBool("IsWalking", false);
     }
 }

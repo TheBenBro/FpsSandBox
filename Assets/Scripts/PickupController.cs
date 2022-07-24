@@ -5,6 +5,8 @@ using UnityEngine;
 public class PickupController : MonoBehaviour
 {
     public Transform equipPosition;
+    public Transform LeftHand;
+    public Transform RightHand;
     public float distance = 10f;
     GameObject currentWeapon;
     GameObject wp;
@@ -27,6 +29,10 @@ public class PickupController : MonoBehaviour
         }
         if (currentWeapon != null)
         {
+            RightHand.transform.position = currentWeapon.transform.GetChild(7).position;
+            RightHand.transform.rotation = currentWeapon.transform.GetChild(7).rotation;
+            LeftHand.transform.position = currentWeapon.transform.GetChild(8).position;
+            LeftHand.transform.rotation = currentWeapon.transform.GetChild(8).rotation;
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 Drop();
@@ -55,6 +61,7 @@ public class PickupController : MonoBehaviour
     {
         currentWeapon = wp;
         currentWeapon.transform.position = equipPosition.position;
+        
         currentWeapon.transform.parent = equipPosition;
         currentWeapon.layer = 8;
         currentWeapon.transform.localEulerAngles = Camera.main.transform.forward;

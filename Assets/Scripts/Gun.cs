@@ -20,7 +20,6 @@ public class Gun : MonoBehaviour
         {
             if (this.transform.parent.tag == "GunPosition")
             {
-                //Debug.Log("Equipped");
                 isEquipped = true;
             }
         }
@@ -28,7 +27,6 @@ public class Gun : MonoBehaviour
         {
             isEquipped = false; 
         }
-
         if (isEquipped)
         {
             fpsCam =  GetComponentInParent<Camera>();
@@ -38,6 +36,7 @@ public class Gun : MonoBehaviour
             }
             if (Input.GetButtonDown("Fire1"))
             {
+                
                 Shoot();
             }
         }
@@ -52,9 +51,11 @@ public class Gun : MonoBehaviour
 
     void Shoot()
     {
+        
         if (isEquipped)
         {
             muzzleFlash.Play();
+            
             RaycastHit hit;
             if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
             {

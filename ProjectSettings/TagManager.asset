@@ -7,6 +7,8 @@ TagManager:
   - CanGrab
   - GunPosition
   - SpawnPoint
+  - LeftHand
+  - RightHand
   layers:
   - Default
   - TransparentFX

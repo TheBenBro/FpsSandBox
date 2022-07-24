@@ -46,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
             }
             AnimationStateController.StartWalking();
         }
-        Debug.Log(speed);
         AnimationStateController.SetVelocity(speed);
         Vector3 move = transform.right * x + transform.forward * z;
        

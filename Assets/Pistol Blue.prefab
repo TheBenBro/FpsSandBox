@@ -5000,6 +5000,66 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2555461, y: 0.27151, z: 0.13677685}
   m_Center: {x: 0.059518754, y: 0.22979599, z: -0.005218394}
+--- !u!1 &1548410964733329164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8634435769435710687}
+  m_Layer: 0
+  m_Name: LeftHandPos
+  m_TagString: LeftHand
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8634435769435710687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548410964733329164}
+  m_LocalRotation: {x: 0.70436597, y: 0.69622904, z: 0.07398639, w: -0.11687524}
+  m_LocalPosition: {x: -0.584, y: -0.224, z: 0.164}
+  m_LocalScale: {x: 3.999999, y: 4, z: 3.999999}
+  m_Children: []
+  m_Father: {fileID: 6947913806604199704}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: -15.526, y: 183.482, z: 90.191}
+--- !u!1 &4924247869630346307
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 963774042433547464}
+  m_Layer: 0
+  m_Name: RightHandPos
+  m_TagString: RightHand
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &963774042433547464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4924247869630346307}
+  m_LocalRotation: {x: -0.12308528, y: 0.08754695, z: -0.70166653, w: 0.69631153}
+  m_LocalPosition: {x: -0.743, y: -0.055, z: 0.019}
+  m_LocalScale: {x: 3.999999, y: 4, z: 3.999999}
+  m_Children: []
+  m_Father: {fileID: 6947913806604199704}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: -2.783, y: 17.157, z: -90.859}
 --- !u!1 &8834498786436225970
 GameObject:
   m_ObjectHideFlags: 0
@@ -5056,6 +5116,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3832703582600944448, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832703582600944448, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832703582600944448, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832703582600944448, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -5097,7 +5169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3832703582600972128, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
       propertyPath: m_Name
-      value: Pistol Orange
+      value: Pistol Blue
       objectReference: {fileID: 0}
     - target: {fileID: 3832703582600972128, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
       propertyPath: m_Layer
@@ -5181,6 +5253,8 @@ MonoBehaviour:
   range: 100
   muzzleFlash: {fileID: 1853713783}
   myEffect: {fileID: 0}
+  impulseForce: 0
+  impulseRadius: 0
   colliders:
   - {fileID: 4392754879099856805}
   - {fileID: 2317269777737940010}
