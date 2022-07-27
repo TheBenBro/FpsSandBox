@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Team { Blue, Red, Green, Yellow, Other};
-public enum DeathType { Explode, Nothing, AI}
+public enum DeathType { Explode, Nothing, AI, Objective}
 public class Target : MonoBehaviour
 {
     float health;
@@ -40,13 +40,16 @@ public class Target : MonoBehaviour
                 tmp.Explosion();
                 break;
 
-                case DeathType.Nothing:
-                Manager.RespawnPlayer(this);
+            case DeathType.Nothing:
+                GameManager.RespawnPlayer(this);
                 break;
             case DeathType.AI:
                 Destroy(this.gameObject);
                 break;
-
+            case DeathType.Objective:
+                GameManager.Instance.UpdateTargetCounter();
+                Destroy(this.gameObject);
+                break;
             default:
                 break;
         }

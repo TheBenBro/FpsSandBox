@@ -9,6 +9,7 @@ TagManager:
   - SpawnPoint
   - LeftHand
   - RightHand
+  - Target
   layers:
   - Default
   - TransparentFX

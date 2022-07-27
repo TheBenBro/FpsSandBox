@@ -59,7 +59,6 @@ public class Gun : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
             {
-                Debug.Log(hit.transform.name);
                 Target target = hit.transform.GetComponent<Target>();
                 Target myCharacter = this.transform.GetComponentInParent<Target>();
                 Rigidbody rb = hit.transform.GetComponent<Rigidbody>();

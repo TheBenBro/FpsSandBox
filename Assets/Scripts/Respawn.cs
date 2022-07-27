@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 
 public class Respawn : MonoBehaviour
@@ -13,11 +12,11 @@ public class Respawn : MonoBehaviour
     int spawn;
     private void OnEnable()
     {
-        Manager.RespawnPlayer += DestroyPlayer;
+        GameManager.RespawnPlayer += DestroyPlayer;
     }
     private void OnDisable()
     {
-        Manager.RespawnPlayer -= DestroyPlayer;
+        GameManager.RespawnPlayer -= DestroyPlayer;
     }
     private void Awake()
     {
