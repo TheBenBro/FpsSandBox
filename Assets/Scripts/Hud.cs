@@ -8,6 +8,7 @@ public class Hud : MonoBehaviour
     // Start is called before the first frame update
     public Slider healthBar;
     public Text counter;
+    public Text timer;
     Target target;
     void Start()
     {
@@ -19,6 +20,6 @@ public class Hud : MonoBehaviour
     {
         healthBar.value = target.GetHealth();
         counter.text = GameManager.Instance.GetCounter().ToString();
-
+        timer.text = GameManager.Instance.GetTimer().ToString("0.00");
     }
 }

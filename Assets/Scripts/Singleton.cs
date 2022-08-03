@@ -1,27 +1,14 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : Component
+public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T instance;
-    public static T Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                GameObject go = new GameObject();
-                go.name = typeof(T).Name;
-                instance = go.AddComponent<T>();
-            }
-            return instance;
-        }
+    public static T Instance { get; private set; }
 
-    }
-    private void OnDestroy()
+    public void Awake()
     {
-        if (instance == null)
-        {
-            instance = null;
-        }
+        if (Instance == null)
+            Instance = (T)FindObjectOfType(typeof(T));
+        else
+            Destroy(gameObject);
     }
 }

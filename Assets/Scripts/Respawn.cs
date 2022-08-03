@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class Respawn : MonoBehaviour
 {
-    public GameObject[] spawnLocations;
+    public GameObject spawnLocations;
     public GameObject player;
-
-    private Vector3 respawnLocation;
     int spawn;
     private void OnEnable()
     {
@@ -20,19 +18,18 @@ public class Respawn : MonoBehaviour
     }
     private void Awake()
     {
-        spawnLocations = GameObject.FindGameObjectsWithTag("SpawnPoint");
+       
     }
     private void Start()
     {
         player = (GameObject)Resources.Load("Character", typeof(GameObject));
-        respawnLocation = player.transform.position;
-        SpawnPlayer();
+        spawnLocations = GameObject.Find("Respawn Point");
     }
 
     private void SpawnPlayer()
     {
-        spawn = Random.Range(0, spawnLocations.Length);
-        GameObject.Instantiate(player, spawnLocations[spawn].transform.position, Quaternion.identity);
+       // spawn = Random.Range(0, spawnLocations.Length);
+        GameObject.Instantiate(player, spawnLocations.transform.position, Quaternion.identity);
     }
     private void DestroyPlayer(Target target_)
     {

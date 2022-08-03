@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
     bool canSlide = true;
+    bool isSliding;
     bool isMoving;
     // Update is called once per frame
     void Update()
@@ -48,8 +49,9 @@ public class PlayerMovement : MonoBehaviour
         }
         AnimationStateController.SetVelocity(speed);
         Vector3 move = transform.right * x + transform.forward * z;
-       
-        controller.Move(move * speed * Time.deltaTime);
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move((velocity + (move * speed)) * Time.deltaTime);
+        //controller.Move(move * speed * Time.deltaTime);
         if (Input.GetButtonDown("Jump") && isGrounded) {
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         }
@@ -57,22 +59,18 @@ public class PlayerMovement : MonoBehaviour
         {
             Slide();
         }
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+
     }
     IEnumerator SlideCoolDown(float speed_)
     {
-        Debug.Log("Dashing");
-        yield return new WaitForSeconds(dashDuration);
-        for (float i = speed_;  speed > i; speed = Mathf.Lerp(speed, i, 150 * Time.deltaTime))
+        float startTime = Time.time; // need to remember this to know how long to dash
+        while (Time.time < startTime + dashDuration)
         {
-            if(speed < 12.5)
-            {
-                speed = 12;
-            }
+            controller.Move(transform.forward * dashMultiplier * Time.deltaTime);
+            // or controller.Move(...), dunno about that script
+            yield return null; // this will make Unity stop here and continue next frame
         }
-        yield return new WaitForSeconds(dashCooldown);
-        Debug.Log("Can Dash Again");
+        Debug.Log("CanSlide");
         canSlide = true;
     }
     void Slide()
