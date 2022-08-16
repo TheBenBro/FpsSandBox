@@ -12,13 +12,14 @@ public class GameManager : Singleton<GameManager>
     public float currentTime;
     public bool countDown;
     public bool hasLimit;
-    bool gameOver;
+    GameState gameState;
     public float timerLimit;
+    public enum GameState { StartGame, GameOver, Menu};
     // Start is called before the first frame update
     void Start()
     {
         counter = GameObject.FindGameObjectsWithTag("Target").Length;
-        gameOver = false;
+        gameState = GameState.Menu;
         //timer = GetComponent<Timer>();
     }
     public int GetCounter()
@@ -31,7 +32,7 @@ public class GameManager : Singleton<GameManager>
         if(counter == 0)
         {
             Debug.Log("GameOver");
-            SetGameOver(true);
+            SetGameState(GameState.GameOver);
             SceneManager.LoadScene(0);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
@@ -40,14 +41,14 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
         //currentTime = countDown ? currentTime -= Time.deltaTime : currentTime += Time.deltaTime;
-        if (!gameOver)
+        if (gameState == GameState.StartGame)
         {
             currentTime = countDown ? currentTime -= Time.deltaTime : currentTime += Time.deltaTime;
         }
     }
-    public void SetGameOver(bool gameOver_)
+    public void SetGameState(GameState gameState_)
     {
-        this.gameOver = gameOver_;
+        gameState = gameState_;
     }
     public void resetTimer()
     {
@@ -70,6 +71,7 @@ public class GameManager : Singleton<GameManager>
            
         Debug.Log("Spawned level");
         GameObject.Instantiate(respawn.player, respawn.spawnLocations.transform.position, Quaternion.identity);
+        SetGameState(GameState.StartGame);
         Debug.Log("Spawned Player");
     }
     public void LoadLevel()

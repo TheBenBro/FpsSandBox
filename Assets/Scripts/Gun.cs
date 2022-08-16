@@ -13,6 +13,7 @@ public class Gun : MonoBehaviour
     public float impulseRadius;
     bool isEquipped;
     public Collider[] colliders;
+    public GameObject[] children;
     // Update is called once per frame
     void Update()
     {
@@ -21,11 +22,19 @@ public class Gun : MonoBehaviour
             if (this.transform.parent.tag == "GunPosition")
             {
                 isEquipped = true;
+                foreach (GameObject obj in children)
+                {
+                    obj.layer = 8;
+                }
             }
         }
         else
         {
-            isEquipped = false; 
+            isEquipped = false;
+            foreach (GameObject obj in children)
+            {
+                obj.layer = 7;
+            }
         }
         if (isEquipped)
         {

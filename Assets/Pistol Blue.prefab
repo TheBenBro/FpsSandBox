@@ -142,7 +142,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -378,7 +378,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.23
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -753,9 +753,9 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 8
     angle: 6.12
-    length: 5
+    length: 0.27
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
@@ -840,7 +840,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.13
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -4910,7 +4910,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5216,9 +5216,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3832703582600972130, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
   m_PrefabInstance: {fileID: 6150665098205019224}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6947913806604106556 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3832703582600972132, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
+  m_PrefabInstance: {fileID: 6150665098205019224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6947913806604106558 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3832703582600972134, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
+  m_PrefabInstance: {fileID: 6150665098205019224}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6947913806604106544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3832703582600972136, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
   m_PrefabInstance: {fileID: 6150665098205019224}
   m_PrefabAsset: {fileID: 0}
 --- !u!54 &1709864741
@@ -5258,6 +5268,11 @@ MonoBehaviour:
   colliders:
   - {fileID: 4392754879099856805}
   - {fileID: 2317269777737940010}
+  children:
+  - {fileID: 6947913806604106554}
+  - {fileID: 6947913806604106556}
+  - {fileID: 6947913806604106558}
+  - {fileID: 6947913806604106544}
 --- !u!64 &4392754879099856805
 MeshCollider:
   m_ObjectHideFlags: 0

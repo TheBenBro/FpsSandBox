@@ -40,48 +40,41 @@ public class PlayerMovement : MonoBehaviour
         else if(z > 0 || z < 0 || x > 0 || x < 0)
         {
             isMoving = true;
-            speed = Mathf.Lerp(speed, maxSpeed, Time.deltaTime);
-            if (speed > maxSpeed - 1f)
-            {
-                speed = maxSpeed;
-            }
             AnimationStateController.StartWalking();
         }
         AnimationStateController.SetVelocity(speed);
-        Vector3 move = transform.right * x + transform.forward * z;
+        Vector3 move =  (transform.right * x + transform.forward * z).normalized;
         velocity.y += gravity * Time.deltaTime;
-        controller.Move((velocity + (move * speed)) * Time.deltaTime);
-        //controller.Move(move * speed * Time.deltaTime);
+       
         if (Input.GetButtonDown("Jump") && isGrounded) {
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         }
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            Slide();
+            Slide(move);
         }
-
+        controller.Move((velocity + (move * maxSpeed)) * Time.deltaTime);
     }
-    IEnumerator SlideCoolDown(float speed_)
+    //SLIDE COOLDOWN
+    IEnumerator SlideCoolDown(Vector3 move_)
     {
-        float startTime = Time.time; // need to remember this to know how long to dash
+        float startTime = Time.time; 
         while (Time.time < startTime + dashDuration)
         {
-            controller.Move(transform.forward * dashMultiplier * Time.deltaTime);
-            // or controller.Move(...), dunno about that script
-            yield return null; // this will make Unity stop here and continue next frame
+            controller.Move(move_ * dashMultiplier * Time.deltaTime);
+            yield return null;
         }
         Debug.Log("CanSlide");
         canSlide = true;
     }
-    void Slide()
+    void Slide(Vector3 move_)
     {
         float tmp;
         tmp = speed;
         if (isGrounded && canSlide)
         {
             canSlide = false;
-            speed = speed * dashMultiplier;
-            StartCoroutine(SlideCoolDown(tmp));
+            StartCoroutine(SlideCoolDown(move_));
         }
     }
 }

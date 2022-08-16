@@ -10,7 +10,6 @@ public class PickupController : MonoBehaviour
     public float distance = 10f;
     GameObject currentWeapon;
     GameObject wp;
-
     bool canGrab;
 
     private void Update()
@@ -48,7 +47,7 @@ public class PickupController : MonoBehaviour
             if(hit.transform.tag == "CanGrab")
             {
                 canGrab = true;
-                wp = hit.transform.gameObject;
+                wp = hit.transform.gameObject;       
             }
         }
         else
@@ -79,6 +78,7 @@ public class PickupController : MonoBehaviour
         torque.z = Random.Range(-200, 200);
         currentWeapon.GetComponent<Rigidbody>().AddTorque(torque);
         currentWeapon.layer = 7;
+
         currentWeapon = null;
     }
 }
