@@ -9,15 +9,18 @@ public class GameManager : Singleton<GameManager>
     int counter = 0;
     public static Action<Target> RespawnPlayer;
     public Respawn respawn;
+    public PlayerSettings playerSettings;
     public float currentTime;
     public bool countDown;
     public bool hasLimit;
+    string level;
     GameState gameState;
     public float timerLimit;
-    public enum GameState { StartGame, GameOver, Menu};
+    public enum GameState { StartGame, GameOver, Menu, Paused};
     // Start is called before the first frame update
     void Start()
     {
+        SceneManager.activeSceneChanged += NotifyChangedScene;
         counter = GameObject.FindGameObjectsWithTag("Target").Length;
         gameState = GameState.Menu;
         //timer = GetComponent<Timer>();
@@ -64,19 +67,34 @@ public class GameManager : Singleton<GameManager>
         Scene[] scenes = SceneManager.GetAllScenes();
         Debug.Log(scenes[1].name);
         foreach (Scene sc in scenes)
-            if(sc.name == "FirstMap")
+            if(sc.name == level)
             {
-                yield return new WaitUntil(() => sc.name == "FirstMap");
+                yield return new WaitUntil(() => sc.name == level);
             }
-           
+        respawn.FindNewSpawnLocations();
         Debug.Log("Spawned level");
         GameObject.Instantiate(respawn.player, respawn.spawnLocations.transform.position, Quaternion.identity);
+        currentTime = 0.0f;
         SetGameState(GameState.StartGame);
         Debug.Log("Spawned Player");
     }
     public void LoadLevel()
     {
-        SceneManager.LoadScene("FirstMap", LoadSceneMode.Additive);
+        SceneManager.LoadScene(level, LoadSceneMode.Additive);
         StartCoroutine(SpawnPlayer());
+    }
+    public void SetLevel(string level_)
+    {
+        level = level_;
+    }
+
+    private void NotifyChangedScene(Scene current, Scene next)
+    {
+        Debug.Log("Scene Changed!");
+       
+    }
+    public void ShowFPS(Toggle state_)
+    {
+        playerSettings.showFPS = state_.isOn;
     }
 }

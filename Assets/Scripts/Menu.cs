@@ -8,8 +8,9 @@ public class Menu : MonoBehaviour
     {
         
     }
-    public void GoToScene()
+    public void GoToScene(string scene_)
     {
+        GameManager.Instance.SetLevel(scene_);
         SceneManager.LoadScene(1);
     }
     // Update is called once per frame

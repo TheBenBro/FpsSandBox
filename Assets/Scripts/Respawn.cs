@@ -16,11 +16,7 @@ public class Respawn : MonoBehaviour
     {
         GameManager.RespawnPlayer -= DestroyPlayer;
     }
-    private void Awake()
-    {
-       
-    }
-    private void Start()
+    public void FindNewSpawnLocations()
     {
         player = (GameObject)Resources.Load("Character", typeof(GameObject));
         spawnLocations = GameObject.Find("Respawn Point");
