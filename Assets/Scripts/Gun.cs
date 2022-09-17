@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
 
     Camera fpsCam;
     public ParticleSystem muzzleFlash;
-    public VisualEffect myEffect;
+    public VisualEffect muzzleVFX;
     public float impulseForce;
     public float impulseRadius;
     bool isEquipped;
@@ -63,8 +63,8 @@ public class Gun : MonoBehaviour
         
         if (isEquipped)
         {
-            muzzleFlash.Play();
-            
+            //muzzleFlash.Play();
+            muzzleVFX.Play();
             RaycastHit hit;
             if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
             {

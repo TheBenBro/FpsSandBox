@@ -13,6 +13,11 @@ public class Menu : MonoBehaviour
         GameManager.Instance.SetLevel(scene_);
         SceneManager.LoadScene(1);
     }
+
+    public void QuitButton()
+    {
+        Application.Quit();
+    }
     // Update is called once per frame
     void Update()
     {

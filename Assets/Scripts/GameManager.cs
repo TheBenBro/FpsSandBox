@@ -16,6 +16,8 @@ public class GameManager : Singleton<GameManager>
     string level;
     GameState gameState;
     public float timerLimit;
+    public int roomsSpawned = 0;
+    public int maxRoomsSpawned = 2;
     public enum GameState { StartGame, GameOver, Menu, Paused};
     // Start is called before the first frame update
     void Start()
@@ -65,18 +67,18 @@ public class GameManager : Singleton<GameManager>
     {
         
         Scene[] scenes = SceneManager.GetAllScenes();
-        Debug.Log(scenes[1].name);
+        //Debug.Log(scenes[1].name);
         foreach (Scene sc in scenes)
             if(sc.name == level)
             {
                 yield return new WaitUntil(() => sc.name == level);
             }
         respawn.FindNewSpawnLocations();
-        Debug.Log("Spawned level");
+        //Debug.Log("Spawned level");
         GameObject.Instantiate(respawn.player, respawn.spawnLocations.transform.position, Quaternion.identity);
         currentTime = 0.0f;
         SetGameState(GameState.StartGame);
-        Debug.Log("Spawned Player");
+        //Debug.Log("Spawned Player");
     }
     public void LoadLevel()
     {
@@ -96,5 +98,20 @@ public class GameManager : Singleton<GameManager>
     public void ShowFPS(Toggle state_)
     {
         playerSettings.showFPS = state_.isOn;
+    }
+
+    public void AddRoom()
+    {
+        roomsSpawned++;
+       // Debug.Log(roomsSpawned.ToString());
+    }
+    public void RemoveRoom()
+    {
+        roomsSpawned--;
+        //Debug.Log(roomsSpawned.ToString());
+    }
+    public bool SpawnLimitReached()
+    {
+        return roomsSpawned > maxRoomsSpawned;
     }
 }

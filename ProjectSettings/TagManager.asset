@@ -10,6 +10,9 @@ TagManager:
   - LeftHand
   - RightHand
   - Target
+  - Room
+  - RoomSpawns
+  - RoomCollider
   layers:
   - Default
   - TransparentFX
@@ -21,7 +24,7 @@ TagManager:
   - UnEquipped Gun
   - Equipped Gun
   - Player
-  - 
+  - RoomCollider
   - 
   - 
   - 
