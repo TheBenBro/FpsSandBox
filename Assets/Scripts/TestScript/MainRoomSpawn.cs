@@ -18,6 +18,7 @@ public class MainRoomSpawn : MonoBehaviour
         //
         roomInt = Random.Range(1, GenerateMap.Instance.roomsPrefab.Length - 1);
         room = Instantiate(GenerateMap.Instance.roomsPrefab[roomInt]);
+        Debug.Log("Spawning " + room.name);
         foreach (Transform child in room.transform)
         {
             if (child.tag == "RoomSpawns")

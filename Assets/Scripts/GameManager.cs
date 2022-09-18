@@ -17,7 +17,7 @@ public class GameManager : Singleton<GameManager>
     GameState gameState;
     public float timerLimit;
     public int roomsSpawned = 0;
-    public int maxRoomsSpawned = 2;
+    public int maxRoomsSpawned = 8;
     public enum GameState { StartGame, GameOver, Menu, Paused};
     // Start is called before the first frame update
     void Start()
