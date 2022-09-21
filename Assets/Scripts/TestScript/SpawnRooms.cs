@@ -19,30 +19,31 @@ public class SpawnRooms : MonoBehaviour
     {
         //Debug.Log("Ready To Spawn!");
         SpawnRoom();
-        
     }
     public void SpawnRoom()
     {
-       
         if (!GameManager.Instance.SpawnLimitReached())
         {
-            roomInt = Random.Range(1, 5);
+            roomInt = Random.Range(1, GenerateMap.Instance.roomsPrefab.Length - 1);
+            GameManager.Instance.AddRoom();
+            spawnAttempts++;
+            room = Instantiate(GenerateMap.Instance.roomsPrefab[roomInt]);
+            RotateRoom();
         }
         else
         {
-            //Debug.Log("Closing Off Room");
-            roomInt = 6;
+            Debug.Log("Closing Off Room");
+            //roomInt = GenerateMap.Instance.roomsPrefab.Length - 1;
+            room = Instantiate(GenerateMap.Instance.wallPrefab, transform.position, transform.rotation);
         }
+    }
 
-        room = Instantiate(GenerateMap.Instance.roomsPrefab[roomInt]);
-        Debug.Log("Spawning " + room.name);
-        GameManager.Instance.AddRoom();
-        spawnAttempts++;
+    void RotateRoom()
+    {
         foreach (Transform child in room.transform)
         {
             if (child.tag == "RoomSpawns")
             {
-                Debug.Log("Adding " + child.gameObject.name);
                 spawnPoints.Add(child.gameObject);
             }
         }
@@ -53,15 +54,10 @@ public class SpawnRooms : MonoBehaviour
             room.transform.RotateAround(spawnPoints[spawnPointInt].transform.position, Vector3.up, 90);
         }
 
-        //spawnPoints[spawnPointInt].GetComponent<SpawnRooms>().SetCanSpawnRooms(false);
-
-
         if (CheckCollisions())
         {
-
             if (spawnAttempts <= 5)
             {
-                Debug.Log("TryingAgain");
                 GameManager.Instance.RemoveRoom();
                 spawnPoints.Clear();
                 Destroy(room);
@@ -69,21 +65,21 @@ public class SpawnRooms : MonoBehaviour
             }
             else
             {
-                Debug.Log("Deleting Room");
                 GameManager.Instance.RemoveRoom();
                 spawnPoints.Clear();
                 Destroy(room);
+                Debug.Log("Found Collision");
+                Instantiate(GenerateMap.Instance.wallPrefab, transform.position, transform.rotation);
             }
         }
+
         for (int i = 0; i < spawnPoints.Count; i++)
         {
             if (i != spawnPointInt)
             {
-                Debug.Log("Enabled Spawn");
                 spawnPoints[i].SetActive(true);
             }
         }
-
     }
     //Checks csollision for each room when spawns
     private bool CheckCollisions()
@@ -94,14 +90,11 @@ public class SpawnRooms : MonoBehaviour
             Collider[] box = Physics.OverlapBox(spawnPoints[spawnPointInt].GetComponent<SpawnRooms>().roomCollider.transform.position, spawnPoints[spawnPointInt].GetComponent<SpawnRooms>().roomCollider.bounds.size / 2, Quaternion.identity, mask);
             if (box.Length > 0)
             {
-               
                 foreach (Collider c in box)
                 {
                     {
                         if (c != roomCollider && c != spawnPoints[spawnPointInt].GetComponent<SpawnRooms>().roomCollider)
                         {
-                            Debug.Log(spawnPoints[spawnPointInt].GetComponent<SpawnRooms>().roomCollider.gameObject.transform.parent.name);
-                            Debug.Log(c.gameObject.transform.parent.name);
                             return true;
                         }
                     }

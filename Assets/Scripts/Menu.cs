@@ -13,6 +13,10 @@ public class Menu : MonoBehaviour
         GameManager.Instance.SetLevel(scene_);
         SceneManager.LoadScene(1);
     }
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 
     public void QuitButton()
     {

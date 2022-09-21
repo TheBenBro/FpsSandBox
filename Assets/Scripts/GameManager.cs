@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
     public static Action<Target> RespawnPlayer;
     public Respawn respawn;
     public PlayerSettings playerSettings;
+    public HandleWindow window;
     public float currentTime;
     public bool countDown;
     public bool hasLimit;
@@ -17,11 +18,11 @@ public class GameManager : Singleton<GameManager>
     GameState gameState;
     public float timerLimit;
     public int roomsSpawned = 0;
-    public int maxRoomsSpawned = 8;
     public enum GameState { StartGame, GameOver, Menu, Paused};
     // Start is called before the first frame update
     void Start()
     {
+        Screen.fullScreenMode = Screen.fullScreenMode;
         SceneManager.activeSceneChanged += NotifyChangedScene;
         counter = GameObject.FindGameObjectsWithTag("Target").Length;
         gameState = GameState.Menu;
@@ -112,6 +113,14 @@ public class GameManager : Singleton<GameManager>
     }
     public bool SpawnLimitReached()
     {
-        return roomsSpawned > maxRoomsSpawned;
+        return roomsSpawned >= playerSettings.maxRooms;
+    }
+    public void ResetRoomsSpawned()
+    {
+        roomsSpawned = 0;
+    }
+    public void SetMaxRooms(int rooms_)
+    {
+        playerSettings.maxRooms = rooms_;
     }
 }

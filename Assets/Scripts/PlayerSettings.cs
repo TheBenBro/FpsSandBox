@@ -8,4 +8,5 @@ public class PlayerSettings : MonoBehaviour
     public bool showFPS = false;
     public bool vsync = false;
     public int targetFrameRate = 400;
+    public int maxRooms = 5;
 }

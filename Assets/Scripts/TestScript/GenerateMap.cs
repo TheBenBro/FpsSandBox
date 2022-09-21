@@ -5,10 +5,13 @@ using UnityEngine;
 public class GenerateMap : Singleton<GenerateMap>
 {
     public GameObject[] roomsPrefab;
+    public GameObject wallPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
         GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+        GameManager.Instance.ResetRoomsSpawned();
         foreach (GameObject tmp in rooms)
         {
             Destroy(tmp);
@@ -16,9 +19,20 @@ public class GenerateMap : Singleton<GenerateMap>
         Instantiate(roomsPrefab[0], this.transform);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartSpawning()
     {
-        
+        GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+        GameManager.Instance.ResetRoomsSpawned();
+        foreach (GameObject tmp in rooms)
+        {
+            Destroy(tmp);
+        }
+        StartCoroutine(RoomGenerationDelay());
+    }
+
+    IEnumerator RoomGenerationDelay()
+    {
+        yield return new WaitForSeconds(1);
+        Instantiate(roomsPrefab[0], this.transform);
     }
 }

@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 0c7243c894e04e54f965fa990e4efb64
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 200
+  forceTextureCase: -1
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Gemsbuck 01
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 39cd6f34a61e99f4aaf7285c4012c5e4, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

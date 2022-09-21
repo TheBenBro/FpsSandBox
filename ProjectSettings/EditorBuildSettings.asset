@@ -11,13 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/FirstMap.unity
     guid: 66588f6e00a93f44d811deec26c8293c
   - enabled: 1
     path: Assets/Scenes/Test procedural genteration.unity
     guid: f0cc31e477280e8419e2ded252b06601
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/EmptyScene.unity
     guid: 35af241f2008d214584a0d3adf182f78
   m_configObjects: {}
