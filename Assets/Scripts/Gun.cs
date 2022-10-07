@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour
     Camera fpsCam;
     public ParticleSystem muzzleFlash;
     public VisualEffect muzzleVFX;
+    public LayerMask mask;
     public float impulseForce;
     public float impulseRadius;
     bool isEquipped;
@@ -66,7 +67,7 @@ public class Gun : MonoBehaviour
             //muzzleFlash.Play();
             muzzleVFX.Play();
             RaycastHit hit;
-            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range, mask,QueryTriggerInteraction.Ignore))
             {
                 Target target = hit.transform.GetComponent<Target>();
                 Target myCharacter = this.transform.GetComponentInParent<Target>();

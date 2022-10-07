@@ -18,10 +18,13 @@ public class SpawnRooms : MonoBehaviour
     private void Awake()
     {
         //Debug.Log("Ready To Spawn!");
-        SpawnRoom();
+        StartCoroutine(SpawnRoom());
+
     }
-    public void SpawnRoom()
+    IEnumerator SpawnRoom()
     {
+        yield return new WaitForEndOfFrame();
+
         if (!GameManager.Instance.SpawnLimitReached())
         {
             roomInt = Random.Range(1, GenerateMap.Instance.roomsPrefab.Length - 1);
@@ -36,7 +39,25 @@ public class SpawnRooms : MonoBehaviour
             //roomInt = GenerateMap.Instance.roomsPrefab.Length - 1;
             room = Instantiate(GenerateMap.Instance.wallPrefab, transform.position, transform.rotation);
         }
+
     }
+    //public void SpawnRoom()
+    //{
+    //    if (!GameManager.Instance.SpawnLimitReached())
+    //    {
+    //        roomInt = Random.Range(1, GenerateMap.Instance.roomsPrefab.Length - 1);
+    //        GameManager.Instance.AddRoom();
+    //        spawnAttempts++;
+    //        room = Instantiate(GenerateMap.Instance.roomsPrefab[roomInt]);
+    //        RotateRoom();
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Closing Off Room");
+    //        //roomInt = GenerateMap.Instance.roomsPrefab.Length - 1;
+    //        room = Instantiate(GenerateMap.Instance.wallPrefab, transform.position, transform.rotation);
+    //    }
+    //}
 
     void RotateRoom()
     {
@@ -61,7 +82,7 @@ public class SpawnRooms : MonoBehaviour
                 GameManager.Instance.RemoveRoom();
                 spawnPoints.Clear();
                 Destroy(room);
-                SpawnRoom();
+                StartCoroutine(SpawnRoom());
             }
             else
             {

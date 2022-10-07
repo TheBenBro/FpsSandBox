@@ -21,12 +21,14 @@ public class FlyingCameraHud : MonoBehaviour
     {
         if (menu.activeSelf == false && options.activeSelf == false)
         {
+            GameManager.Instance.SetGameState(GameManager.GameState.Paused);
             menu.SetActive(true);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         }
         else
         {
+            GameManager.Instance.SetGameState(GameManager.GameState.StartGame);
             menu.SetActive(false);
             options.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;

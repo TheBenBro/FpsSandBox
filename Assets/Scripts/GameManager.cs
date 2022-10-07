@@ -14,6 +14,7 @@ public class GameManager : Singleton<GameManager>
     public float currentTime;
     public bool countDown;
     public bool hasLimit;
+    public bool canSpawnItems;
     string level;
     GameState gameState;
     public float timerLimit;
@@ -56,6 +57,12 @@ public class GameManager : Singleton<GameManager>
     {
         gameState = gameState_;
     }
+    public bool GetGameState(GameState gameState_)
+    {
+        Debug.Log(gameState);
+        Debug.Log(gameState_);
+        return gameState == gameState_;
+    }
     public void resetTimer()
     {
         currentTime = 0f;
@@ -94,7 +101,7 @@ public class GameManager : Singleton<GameManager>
     private void NotifyChangedScene(Scene current, Scene next)
     {
         Debug.Log("Scene Changed!");
-       
+        canSpawnItems = false;
     }
     public void ShowFPS(Toggle state_)
     {
@@ -113,6 +120,18 @@ public class GameManager : Singleton<GameManager>
     }
     public bool SpawnLimitReached()
     {
+        if(roomsSpawned >= playerSettings.maxRooms)
+        {
+            GameObject[] objs = GameObject.FindGameObjectsWithTag("RoomCollider");
+
+            foreach(GameObject obj in objs)
+            {
+                obj.GetComponent<Collider>().isTrigger = true;
+                
+            }
+
+            canSpawnItems = true;
+        }
         return roomsSpawned >= playerSettings.maxRooms;
     }
     public void ResetRoomsSpawned()

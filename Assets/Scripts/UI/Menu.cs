@@ -11,10 +11,12 @@ public class Menu : MonoBehaviour
     public void GoToScene(string scene_)
     {
         GameManager.Instance.SetLevel(scene_);
+        GameManager.Instance.SetGameState(GameManager.GameState.StartGame);
         SceneManager.LoadScene(1);
     }
     public void GoToMainMenu()
     {
+        GameManager.Instance.SetGameState(GameManager.GameState.Menu);
         SceneManager.LoadScene(0);
     }
 
