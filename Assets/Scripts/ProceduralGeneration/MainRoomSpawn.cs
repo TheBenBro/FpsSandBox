@@ -29,8 +29,7 @@ public class MainRoomSpawn : MonoBehaviour
         int spawnPointInt = Random.Range(0, spawnPoints.Count);
         room.transform.position = new Vector3(transform.position.x - spawnPoints[spawnPointInt].transform.position.x, transform.position.y - spawnPoints[spawnPointInt].transform.position.y, transform.position.z - spawnPoints[spawnPointInt].transform.position.z);
         Vector3 dir = (spawnPoints[spawnPointInt].transform.position - transform.parent.position).normalized;
-
-        while (spawnPoints[spawnPointInt].transform.forward != -dir)
+        while (spawnPoints[spawnPointInt].transform.forward != -transform.forward)
         {
             room.transform.RotateAround(spawnPoints[spawnPointInt].transform.position, Vector3.up, 90);
         }

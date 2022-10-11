@@ -19,7 +19,6 @@ public class SpawnRooms : MonoBehaviour
     {
         //Debug.Log("Ready To Spawn!");
         StartCoroutine(SpawnRoom());
-
     }
     IEnumerator SpawnRoom()
     {
@@ -31,6 +30,7 @@ public class SpawnRooms : MonoBehaviour
             GameManager.Instance.AddRoom();
             spawnAttempts++;
             room = Instantiate(GenerateMap.Instance.roomsPrefab[roomInt]);
+            //
             RotateRoom();
         }
         else
@@ -41,23 +41,6 @@ public class SpawnRooms : MonoBehaviour
         }
 
     }
-    //public void SpawnRoom()
-    //{
-    //    if (!GameManager.Instance.SpawnLimitReached())
-    //    {
-    //        roomInt = Random.Range(1, GenerateMap.Instance.roomsPrefab.Length - 1);
-    //        GameManager.Instance.AddRoom();
-    //        spawnAttempts++;
-    //        room = Instantiate(GenerateMap.Instance.roomsPrefab[roomInt]);
-    //        RotateRoom();
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("Closing Off Room");
-    //        //roomInt = GenerateMap.Instance.roomsPrefab.Length - 1;
-    //        room = Instantiate(GenerateMap.Instance.wallPrefab, transform.position, transform.rotation);
-    //    }
-    //}
 
     void RotateRoom()
     {
@@ -70,6 +53,7 @@ public class SpawnRooms : MonoBehaviour
         }
         spawnPointInt = Random.Range(0, spawnPoints.Count);
         room.transform.position = new Vector3(transform.position.x - spawnPoints[spawnPointInt].transform.position.x, transform.position.y - spawnPoints[spawnPointInt].transform.position.y, transform.position.z - spawnPoints[spawnPointInt].transform.position.z);
+        Vector3 dir = new Vector3(transform.position.x - spawnPoints[spawnPointInt].transform.position.x, transform.position.y - spawnPoints[spawnPointInt].transform.position.y, transform.position.z - spawnPoints[spawnPointInt].transform.position.z);
         while (spawnPoints[spawnPointInt].transform.forward != -transform.forward)
         {
             room.transform.RotateAround(spawnPoints[spawnPointInt].transform.position, Vector3.up, 90);

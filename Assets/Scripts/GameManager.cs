@@ -15,6 +15,7 @@ public class GameManager : Singleton<GameManager>
     public bool countDown;
     public bool hasLimit;
     public bool canSpawnItems;
+    bool isPlayerSpawned = false;
     string level;
     GameState gameState;
     public float timerLimit;
@@ -52,6 +53,7 @@ public class GameManager : Singleton<GameManager>
         {
             currentTime = countDown ? currentTime -= Time.deltaTime : currentTime += Time.deltaTime;
         }
+        //Debug.Log(playerSettings.mouseSensitivity);
     }
     public void SetGameState(GameState gameState_)
     {
@@ -59,8 +61,6 @@ public class GameManager : Singleton<GameManager>
     }
     public bool GetGameState(GameState gameState_)
     {
-        Debug.Log(gameState);
-        Debug.Log(gameState_);
         return gameState == gameState_;
     }
     public void resetTimer()
@@ -74,24 +74,25 @@ public class GameManager : Singleton<GameManager>
     public IEnumerator SpawnPlayer()
     {
         
-        Scene[] scenes = SceneManager.GetAllScenes();
+        //Scene[] scenes = SceneManager.GetAllScenes();
         //Debug.Log(scenes[1].name);
-        foreach (Scene sc in scenes)
-            if(sc.name == level)
-            {
-                yield return new WaitUntil(() => sc.name == level);
-            }
+        //foreach (Scene sc in scenes)
+        //    if(sc.name == level)
+        //    {
+        //        yield return new WaitUntil(() => sc.name == level);
+        //    }
+        
         respawn.FindNewSpawnLocations();
         //Debug.Log("Spawned level");
         GameObject.Instantiate(respawn.player, respawn.spawnLocations.transform.position, Quaternion.identity);
         currentTime = 0.0f;
         SetGameState(GameState.StartGame);
         //Debug.Log("Spawned Player");
+        yield return null;
     }
     public void LoadLevel()
     {
         SceneManager.LoadScene(level, LoadSceneMode.Additive);
-        StartCoroutine(SpawnPlayer());
     }
     public void SetLevel(string level_)
     {
@@ -105,7 +106,7 @@ public class GameManager : Singleton<GameManager>
     }
     public void ShowFPS(Toggle state_)
     {
-        playerSettings.showFPS = state_.isOn;
+        playerSettings.SetShowFPS(state_.isOn);
     }
 
     public void AddRoom()
@@ -120,7 +121,7 @@ public class GameManager : Singleton<GameManager>
     }
     public bool SpawnLimitReached()
     {
-        if(roomsSpawned >= playerSettings.maxRooms)
+        if(roomsSpawned >= playerSettings.GetMaxRooms())
         {
             GameObject[] objs = GameObject.FindGameObjectsWithTag("RoomCollider");
 
@@ -129,10 +130,20 @@ public class GameManager : Singleton<GameManager>
                 obj.GetComponent<Collider>().isTrigger = true;
                 
             }
-
+            if (!isPlayerSpawned)
+            {
+                StartCoroutine(SpawnPlayer());
+                isPlayerSpawned = true;
+            }
+            
+            Debug.Log(roomsSpawned);
             canSpawnItems = true;
         }
-        return roomsSpawned >= playerSettings.maxRooms;
+        return roomsSpawned >= playerSettings.GetMaxRooms();
+    }
+    public void SetCanSpawnItems(bool state_)
+    {
+        canSpawnItems = state_;
     }
     public void ResetRoomsSpawned()
     {
@@ -140,6 +151,6 @@ public class GameManager : Singleton<GameManager>
     }
     public void SetMaxRooms(int rooms_)
     {
-        playerSettings.maxRooms = rooms_;
+        playerSettings.SetMaxRooms(rooms_);
     }
 }

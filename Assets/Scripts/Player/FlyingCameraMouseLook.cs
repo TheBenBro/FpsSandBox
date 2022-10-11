@@ -18,8 +18,8 @@ public class FlyingCameraMouseLook : MonoBehaviour
     {
         if (GameManager.Instance.GetGameState(GameManager.GameState.StartGame))
         {
-            float mouseX = Input.GetAxisRaw("Mouse X") * GameManager.Instance.playerSettings.mouseSensitivity * Time.deltaTime;
-            float mouseY = Input.GetAxisRaw("Mouse Y") * GameManager.Instance.playerSettings.mouseSensitivity * Time.deltaTime;
+            float mouseX = Input.GetAxisRaw("Mouse X") * GameManager.Instance.playerSettings.GetMouseSensitivity()* Time.deltaTime;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * GameManager.Instance.playerSettings.GetMouseSensitivity() * Time.deltaTime;
             xRotation -= mouseY;
             yRotation += mouseX;
             transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);

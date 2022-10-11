@@ -35,6 +35,14 @@ public class FlyingCameraHud : MonoBehaviour
             Cursor.visible = false;
         }
     }
+    public void ResumeGame()
+    {
+        GameManager.Instance.SetGameState(GameManager.GameState.StartGame);
+        menu.SetActive(false);
+        options.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -49,7 +57,7 @@ public class FlyingCameraHud : MonoBehaviour
             OpenMenu();
         }
 
-        if (GameManager.Instance.playerSettings.showFPS == true)
+        if (GameManager.Instance.playerSettings.GetShowFPS())
         {
             fps.enabled = true;
             // Update time.
@@ -66,7 +74,7 @@ public class FlyingCameraHud : MonoBehaviour
                 frameCount = 0;
             }
         }
-        if (GameManager.Instance.playerSettings.showFPS == false)
+        if (GameManager.Instance.playerSettings.GetShowFPS())
         {
             fps.enabled = false;
         }

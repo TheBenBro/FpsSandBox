@@ -22,11 +22,17 @@ public class GenerateMap : Singleton<GenerateMap>
     public void StartSpawning()
     {
         GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+        GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
         GameManager.Instance.ResetRoomsSpawned();
         foreach (GameObject tmp in rooms)
         {
             Destroy(tmp);
         }
+        foreach(GameObject tmp in targets)
+        {
+            Destroy(tmp);
+        }
+        GameManager.Instance.SetCanSpawnItems(false);
         StartCoroutine(RoomGenerationDelay());
     }
 
