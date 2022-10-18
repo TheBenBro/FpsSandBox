@@ -17,7 +17,6 @@ public class SpawnRooms : MonoBehaviour
     public int spawnPointI;
     private void Awake()
     {
-        //Debug.Log("Ready To Spawn!");
         StartCoroutine(SpawnRoom());
     }
     IEnumerator SpawnRoom()
@@ -35,7 +34,6 @@ public class SpawnRooms : MonoBehaviour
         }
         else
         {
-            Debug.Log("Closing Off Room");
             //roomInt = GenerateMap.Instance.roomsPrefab.Length - 1;
             room = Instantiate(GenerateMap.Instance.wallPrefab, transform.position, transform.rotation);
         }
@@ -73,7 +71,6 @@ public class SpawnRooms : MonoBehaviour
                 GameManager.Instance.RemoveRoom();
                 spawnPoints.Clear();
                 Destroy(room);
-                Debug.Log("Found Collision");
                 Instantiate(GenerateMap.Instance.wallPrefab, transform.position, transform.rotation);
             }
         }

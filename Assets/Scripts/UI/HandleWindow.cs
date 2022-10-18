@@ -13,21 +13,21 @@ public class HandleWindow : MonoBehaviour,ISaveable
 
     private int currentHeight;
     private int currentWidth;
-    private FullScreenMode currentFullScreenMode;
+    private int currentFullScreenMode;
 
     // Start is called before the first frame update
     void Start()
     {
         resolutions = Screen.resolutions.Select(resolution => new Resolution { width = resolution.width, height = resolution.height }).Distinct().ToArray();
         SaveLoadSystem.Instance.Load();
-
     }
 
-    public void SetResolution(TMP_Text text_)
+    public void SetResolution(TMP_Text text_, TMP_Dropdown dropDown_)
     {
         text_.SetText(currentWidth.ToString() + "x" + currentHeight.ToString());
         Screen.SetResolution(currentWidth, currentHeight, Screen.fullScreenMode, 0);
-        Screen.fullScreenMode = currentFullScreenMode;
+        dropDown_.value = currentFullScreenMode;
+        HandleWindowMode(currentFullScreenMode);
     }
     public void IncreaseResolution(TMP_Text text_)
     {
@@ -60,18 +60,16 @@ public class HandleWindow : MonoBehaviour,ISaveable
         if (value_ == 0)
         {
             Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-            currentFullScreenMode = FullScreenMode.FullScreenWindow;
         }
         else if (value_ == 1)
         {
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
-            currentFullScreenMode = FullScreenMode.ExclusiveFullScreen;
         }
         else if (value_ == 2)
-        { 
+        {
             Screen.fullScreenMode = FullScreenMode.Windowed;
-            currentFullScreenMode = FullScreenMode.Windowed;
         }
+        currentFullScreenMode = value_;
     }
     public object SaveState()
     {
@@ -79,7 +77,7 @@ public class HandleWindow : MonoBehaviour,ISaveable
         {
             currentHeight = this.currentHeight,
             currentWidth = this.currentWidth, 
-            //currentFullScreenMode = this.currentFullScreenMode,
+            currentFullScreenMode = this.currentFullScreenMode,
         };
     }
     public void LoadState(object state)
@@ -87,7 +85,7 @@ public class HandleWindow : MonoBehaviour,ISaveable
         var saveData = (SaveData)state;
         currentHeight = saveData.currentHeight;
         currentWidth = saveData.currentWidth;
-        //currentFullScreenMode = saveData.currentFullScreenMode;
+        currentFullScreenMode = saveData.currentFullScreenMode;
     }
 
     [Serializable]
@@ -95,7 +93,7 @@ public class HandleWindow : MonoBehaviour,ISaveable
     {
         public int currentHeight;
         public int currentWidth;
-        //public FullScreenMode currentFullScreenMode;
+        public int currentFullScreenMode;
     }
 }
 

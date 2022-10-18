@@ -26,7 +26,7 @@ public class SettingsMenu : MonoBehaviour
         sensValue.SetText(GameManager.Instance.playerSettings.GetMouseSensitivity().ToString());
         fpsValue.SetText(GameManager.Instance.playerSettings.GetTargetFrameRate().ToString());
         maxRoomsValue.SetText(GameManager.Instance.playerSettings.GetMaxRooms().ToString());
-        GameManager.Instance.window.SetResolution(screenResolution);
+        GameManager.Instance.window.SetResolution(screenResolution, windowedModeDropDown);
     }
     public void SetVolume()
     {

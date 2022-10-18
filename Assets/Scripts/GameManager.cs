@@ -21,10 +21,11 @@ public class GameManager : Singleton<GameManager>
     public float timerLimit;
     public int roomsSpawned = 0;
     public enum GameState { StartGame, GameOver, Menu, Paused};
+
+    private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        Screen.fullScreenMode = Screen.fullScreenMode;
         SceneManager.activeSceneChanged += NotifyChangedScene;
         counter = GameObject.FindGameObjectsWithTag("Target").Length;
         gameState = GameState.Menu;
@@ -71,6 +72,14 @@ public class GameManager : Singleton<GameManager>
     {
         return currentTime;
     }
+    public void ResetPlayer()
+    {
+        if (player != null)
+        {
+            Destroy(player);
+        }
+        player = GameObject.Instantiate(respawn.player, respawn.spawnLocations.transform.position, Quaternion.identity);
+    }
     public IEnumerator SpawnPlayer()
     {
         
@@ -84,7 +93,11 @@ public class GameManager : Singleton<GameManager>
         
         respawn.FindNewSpawnLocations();
         //Debug.Log("Spawned level");
-        GameObject.Instantiate(respawn.player, respawn.spawnLocations.transform.position, Quaternion.identity);
+        if (player != null)
+        {
+            Destroy(player);
+        }
+        player = GameObject.Instantiate(respawn.player, respawn.spawnLocations.transform.position, Quaternion.identity);
         currentTime = 0.0f;
         SetGameState(GameState.StartGame);
         //Debug.Log("Spawned Player");
@@ -93,6 +106,7 @@ public class GameManager : Singleton<GameManager>
     public void LoadLevel()
     {
         SceneManager.LoadScene(level, LoadSceneMode.Additive);
+        isPlayerSpawned = false;
     }
     public void SetLevel(string level_)
     {
@@ -135,8 +149,6 @@ public class GameManager : Singleton<GameManager>
                 StartCoroutine(SpawnPlayer());
                 isPlayerSpawned = true;
             }
-            
-            Debug.Log(roomsSpawned);
             canSpawnItems = true;
         }
         return roomsSpawned >= playerSettings.GetMaxRooms();
